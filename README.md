@@ -1,2 +1,1 @@
-# visual-electron-part1
-ini part 1
+# P.Visual-Electron-Part2
