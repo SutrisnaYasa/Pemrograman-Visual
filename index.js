@@ -94,7 +94,7 @@ ipcMain.on("appointment:create", (event, appointment) => {
 });
 
 ipcMain.on("appointment:request:list", event => {
-    console.log("here");
+   listWindow.webContents.send('appointment:response:list', allAppointment);
 });
 
 ipcMain.on("appointment:request:today", event => {
