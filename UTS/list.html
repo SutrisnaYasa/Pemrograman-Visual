@@ -1,0 +1,70 @@
+<html>
+<head>
+</head>
+
+<body>
+    <h1>LIST PESANAN</h1>
+    <div id="list"></div>
+<script>
+    const electron = require("electron");
+    const {ipcRenderer} = electron;
+    ipcRenderer.send("appointment:request:list");
+
+    ipcRenderer.on("appointment:response:list", (event, appointments) => {
+        const listDiv = document.getElementById("list");
+        appointments.forEach(appointment => {
+            const appointmentDiv = document.createElement("div");
+            
+            const namaParagraph = document.createElement("p");
+                namaParagraph.innerHTML = `Nama: ${appointment.nama}`;
+
+                const alamatParagraph = document.createElement("p");
+                alamatParagraph.innerHTML = `Alamat: ${appointment.alamat}`;
+
+                const noParagraph = document.createElement("p");
+                noParagraph.innerHTML = `No Hp: ${appointment.no}`;
+
+                var mobilParagraph = document.createElement("p") ; 
+                mobilParagraph.innerHTML = `Jenis Mobil: ${appointment.mobil}`;
+
+                var hargaParagraph = document.createElement("p");
+                hargaParagraph.innerHTML = `Harga: ${appointment.harga}`;
+
+                const tglsewaParagraph = document.createElement("p");
+                tglsewaParagraph.innerHTML = `Tanggal Sewa: ${appointment.tglsewa}`;
+
+                const tglkembaliParagraph = document.createElement("p");
+                tglkembaliParagraph.innerHTML = `Tanggal Kembali: ${appointment.tglkembali}`;
+
+                const keteranganParagraph = document.createElement("p");
+                keteranganParagraph.innerHTML = `Keterangan: ${appointment.keterangan}`;
+
+                const doneParagraph = document.createElement("p");
+                doneParagraph.innerHTML = `Done: ${appointment.done ? "Yes" : "No" }`;
+
+                const doneButton = document.createElement("button");
+                doneButton.innerHTML = "Done";
+                doneButton.disabled = appointment.done ? true : false;
+                doneButton.onclick = () => done(appointment.id);
+
+                const hr = document.createElement("hr");
+
+                appointmentDiv.appendChild(namaParagraph);
+                appointmentDiv.appendChild(alamatParagraph);
+                appointmentDiv.appendChild(noParagraph);
+                appointmentDiv.appendChild(mobilParagraph);
+                appointmentDiv.appendChild(hargaParagraph);
+                appointmentDiv.appendChild(tglsewaParagraph);
+                appointmentDiv.appendChild(tglkembaliParagraph);
+                appointmentDiv.appendChild(keteranganParagraph);
+                appointmentDiv.appendChild(doneParagraph);
+                appointmentDiv.appendChild(doneButton);
+                appointmentDiv.appendChild(hr);
+
+            listDiv.append(appointmentDiv);
+
+        });
+    });
+</script>
+</body>
+</html>

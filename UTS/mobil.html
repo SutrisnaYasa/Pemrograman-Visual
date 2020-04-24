@@ -1,0 +1,178 @@
+<html>
+    <head>
+            <style>
+                   html {
+                    box-sizing: border-box;
+                    }
+
+                    *, *:before, *:after {
+                    box-sizing: inherit;
+                    }
+
+                    .column {
+                    float: left;
+                    width: 33.3%;
+                    margin-bottom: 16px;
+                    padding: 0 8px;
+                    }
+
+                    @media screen and (max-width: 650px) {
+                    .column {
+                        width: 100%;
+                        display: block;
+                    }
+                    }
+
+                    .card {
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                    }
+
+                    .container {
+                    padding: 0 16px;
+                    }
+
+                    .container::after, .row::after {
+                    content: "";
+                    clear: both;
+                    display: table;
+                    }
+
+                    .title {
+                    color: grey;
+                    }
+            </style>
+    </head>
+
+    <body>
+        <h2><center>MOBIL YANG KAMI SEWAKAN</center></h2>
+        <div class="row">
+                <div class="column">
+                <div class="card">
+                    <img src="Avansa.jpg" alt="Jane" style="width:100%">
+                    <div class="container">
+                    <h2>Avansa</h2>
+                    <p class="title">Matic</p>
+                    <p>Warna : Hitam</p>
+                    <p>Harga Sewa : 200.000/Hari</p>
+                    </div>
+                </div>
+                </div>
+            
+                <div class="column">
+                <div class="card">
+                    <img src="karimun.jpg" alt="Mike" style="width:100%">
+                    <div class="container">
+                    <h2>Karimun</h2>
+                    <p class="title">Matic</p>
+                    <p>Warna : Merah.</p>
+                    <p>Harga Sewa : 200.000/Hari</p>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="column">
+                <div class="card">
+                    <img src="Dfsk.jpg" alt="John" style="width:100%">
+                    <div class="container">
+                    <h2>DFSK</h2>
+                    <p class="title">Matic</p>
+                    <p>Warna : Merah</p>
+                    <p>Harga Sewa : 200.000/Hari</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                    <img src="mitsubishi.jpg" alt="John" style="width:100%">
+                    <div class="container">
+                    <h2>Mitsubishi</h2>
+                    <p class="title">Matic</p>
+                    <p>Warna : Silver</p>
+                    <p>Harga Sewa : 250.000/Hari</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                    <img src="ertiga.jpg" alt="John" style="width:100%">
+                    <div class="container">
+                    <h2>Ertiga</h2>
+                    <p class="title">Matic</p>
+                    <p>Warna : Silver</p>
+                    <p>Harga Sewa : 250.000/Hari</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+       
+    </body>
+
+    <script>
+        const electron = require("electron");
+        const {ipcRenderer} = electron;
+        ipcRenderer.send("appointment:request:home");
+
+        ipcRenderer.on("appointment:request:", (event, appointments) => {
+            const listDiv = document.getElementById("List");
+            appointments.forEach(appointment => {
+                const appointmentDiv = document.createElement("div");
+               const namaParagraph = document.createElement("p");
+                namaParagraph.innerHTML = `Nama: ${appointment.nama}`;
+
+                const alamatParagraph = document.createElement("p");
+                alamatParagraph.innerHTML = `Alamat: ${appointment.alamat}`;
+
+                const noParagraph = document.createElement("p");
+                noParagraph.innerHTML = `No Hp: ${appointment.no}`;
+
+                var mobilParagraph = document.createElement("p");
+                mobilParagraph.innerHTML = `Jenis Mobil: ${appointment.mobil}`;
+
+                var hargaParagraph = document.createElement("p");
+                hargaParagraph.innerHTML = `Harga: ${appointment.harga}`;
+
+                const tglsewaParagraph = document.createElement("p");
+                tglsewaParagraph.innerHTML = `Tanggal Sewa: ${appointment.tglsewa}`;
+
+                const tglkembaliParagraph = document.createElement("p");
+                tglkembaliParagraph.innerHTML = `Tanggal Kembali: ${appointment.tglkembali}`;
+
+                const keteranganParagraph = document.createElement("p");
+                keteranganParagraph.innerHTML = `Keterangan: ${appointment.keterangan}`;
+
+                const doneParagraph = document.createElement("p");
+                doneParagraph.innerHTML = `Done: ${appointment.done ? "Yes" : "No" }`;
+
+                const doneButton = document.createElement("button");
+                doneButton.innerHTML = "Done";
+                doneButton.disabled = appointment.done ? true : false;
+                doneButton.onclick = () => done(appointment.id);
+
+                const hr = document.createElement("hr");
+
+                appointmentDiv.appendChild(namaParagraph);
+                appointmentDiv.appendChild(alamatParagraph);
+                appointmentDiv.appendChild(noParagraph);
+                appointmentDiv.appendChild(mobilParagraph);
+                appointmentDiv.appendChild(hargaParagraph);
+                appointmentDiv.appendChild(tglsewaParagraph);
+                appointmentDiv.appendChild(tglkembaliParagraph);
+                appointmentDiv.appendChild(keteranganParagraph);
+                appointmentDiv.appendChild(doneParagraph);
+                appointmentDiv.appendChild(doneButton);
+                appointmentDiv.appendChild(hr);
+
+                listDiv.append(appointmentDiv);
+
+            })
+        });
+        const done = id => {
+            ipcRenderer.send("appointment:done",id);
+        }
+
+    </script>
+</html>
