@@ -1,25 +1,19 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Sidebar from "./component/Sidebar"
+import CreateAppointment from "./component/appointment/Create"
+import AppointmentList from "./component/appointment/List"
+import TodayAppointments from "./component/appointment/Today"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div>
+    <Sidebar />
+    <CreateAppointment />
+    <AppointmentList />
+    <TodayAppointments />
+   </div>
   );
 }
 
