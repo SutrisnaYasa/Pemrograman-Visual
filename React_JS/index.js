@@ -2,30 +2,34 @@ const electron = require("electron")
 const fs = require("fs")
 const uuid = require("uuid")
 
-const { app, BrowserWindow, ipcMain, Menu } = electron
+const { app, 
+    BrowserWindow,
+     ipcMain,
+      Menu
+    } = electron
 
 let mainWindow
 
 let allAppointments = []
 
 fs.readFile("db.json", (err, jsonAppointments) => {
-    if (!err) {
-        const oldAppointments = JSON.parse(jsonAppointments) 
-        allAppointments = oldAppointments
+if (!err){
+    const oldAppointments = JSON.parse(jsonAppointments)
+    allAppointmens = oldAppointments
     }
 })
 
-const createWindow = () => {
-    mainWindow = new BrowserWindow({
-        webPreferences: {
-            noteIntegration: true,
-        },
-        title: "Doctor Appointments",
-    })
-    const startUrl = 
-        process.env.ELECTRON_START_URL || `file://${__dirname}/build/index.html`
+ const createWindow = () => {
+     mainWindow = new BrowserWindow({
+         webPreferences: {
+             nodeIntegration: true,
+         },
+         title: "Doctor Appointments",
+     })
+     const starUrl = 
+     process.env.ELECTRON_START_URL || 'file://${__dirname}/build/index.html'
 
-    mainWindow.loadURL(startUrl)
+    mainWindow.loadURL(starUrl)
 
     mainWindow.on("closed", () => {
         const jsonAppointments = JSON.stringify(allAppointments)
@@ -35,51 +39,52 @@ const createWindow = () => {
         mainWindow = null
     })
 
-    if (process.env.ELECTRON_START_URL){
-        const mainMenu = Menu.buildFormTemplate(menuTemplate)
+    if (process.env.ELECTRON_START_URL) {
+        const mainMenu = Menu.buildFromTemplate (menuTemplate)
         Menu.setApplicationMenu(mainMenu)
     } else {
-        Menu.setApplicationMenu(null)
+        Menu.setApplicationMenu (null)
     }
-}
+ }
 
-app.on("ready", createWindow)
+ app.on("ready", createWindow)
 
-ipcMain.on("appointment:create", (event, appointment) =>{
-    appoinmtent["id"] = uuid()
-    appointment["done"] = 0 
+ ipcMain.on("appointment:create", (event, appointment) => {
+     appointment["id"] = uuid()
+     appointment["done"] = 0
+     
+     allAppointments.push(appointment)
+ })
 
-    allAppointments.push(appointment)
-})
+ ipcMain.on("appointment:request:list", (event) => {
+     mainWindow.webContents.send("appointment:response:list", allAppointments )
+ })
 
-ipcMain.on("appointment:request:list", event=>{
-    mainWindow.webContents.send("appointment:response:list", allAppointments)
-})
+ ipcMain.on("appointment:request:today", (event) => {
+     sendTodayAppointments()
+ })
 
-ipcMain.on("appointment:request:today", (event) => {
-    sendTodayAppoinments()
-})
+ ipcMain.on("appointment:done", (event,id) => {
+     allAppointments.forEach((appointment) => {
+         if (appointment.id === id) appointment.done = 1
+     })
 
-ipcMain.on("appointment:done", (event, id) => {
-    allAppointments.forEach((appointment) => {
-        if (appointment.id === id) appointment.done = 1
-    })
+     sendTodayAppointments()
+ })
 
-    sendTodayAppoinments()
-})
+ const sendTodayAppointments = () => {
+     const today = new Date().toISOString().slice(0, 10)
+     const filtered = allAppointments.filter(
+         (appointment) => appointment.date === today
+     )
 
-const sendTodayAppointments = () => {
-    const today = new Date().toISOString().slice(0, 10)
-    const filtered = allApointments.filter(
-        (appointment) => appointment.date === today
-    )
+     mainWindow.webContents.send("appointment:response:today", filtered)
+ }
+ const menuTemplate = [
+     {
 
-    mainWindow.webContents.send("appointment:response:today", filtered)
-}
-
-const menuTemplate = [
-    {
         label:"View",
-        submenu: [{role:"reload" }, { role: "toggledevtools" }],
-    },
+        submenu: [{role: "reload"}, {role: "toggledevtools"}],
+
+ },
 ]
