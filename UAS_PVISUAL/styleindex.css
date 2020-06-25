@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    height: 100%;
+    margin: 0;
+}
+
+html{
+    height: 100%;
+    margin: 0;
+}
+
+.container{
+    padding: 20px 50px;
+    height: 100%;
+    background-size: cover;
+    background-image: url("./src/backgroud.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+   
+}
+
+div.tulisan{
+   position: absolute;
+   color: white;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+p{
+    font-size: 20px;
+}
+
+h6{
+    color: white;
+    margin-top: 200px;
+    text-align: center;
+    font-size: 15px;
+    margin-left: 150px;
+}
+
+br{
+    margin-bottom: 10px;
+}
+
+.tombol {
+    width: 200px;
+    height: 50px;
+    margin-top: 10px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: rgb(255, 1, 44);
+    color: white;
+    transition: 0.5s; 
+}
+
+.tombol:hover {
+    background-color: rgb(28, 138, 248);
+    color: white;
+}

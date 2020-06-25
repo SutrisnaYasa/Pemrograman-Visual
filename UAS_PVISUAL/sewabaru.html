@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>My Rental Bali</title>
+    <link rel="stylesheet" href="./sewabaru.css">
+</head>
+<body>
+    <form id="form" action="./daftarmobil.html">
+        <h1>Form Booking Mobil</h1>
+        <div class="informasi">
+            <h4><center>Data Diri Pemesan</center></h4><hr>
+            <label for="name"> Nama : </label><br>
+            <input type="text" id="nama" name="name" required><br><br>
+            <label for="alamat">Alamat : </label> <br>
+            <input type="text" name="alamat" required><br><br>
+            <label for="number">No Hp :</label> <br>
+            <input type="number" name="number" required><br><br> 
+        </div>
+       
+        <div class="waktusewa">
+            <h4><center>Tgl & Waktu Penyewaan</center></h4><hr>
+            <label for="date">Tanggal Disewa :</label> <br> 
+            <input id="daterent" type="date" name="daterent" required> <br><br>
+            <label for="time">Waktu Disewa :</label> <br>
+            <input type="time" name="waktusewa" required> <br> <br>
+        </div>
+        <div class="waktusewa">
+            <h4><center>Tgl & Waktu Pengembalian</center></h4><hr>
+            <label for="date">Tanggal Kembali : </label>   <br>    
+            <input  id="datereturn" type="date" name="datereturn" required><br><br>
+            <label for="time">Waktu Kembali :</label>  <br>
+            <input type="time" name="waktukembali" required> <br><br>
+        </div>
+        <div class="mobil">
+            <h4><center>Pilih Mobil</center></h4><hr>
+            <label>Pilih Mobil :</label> <br>
+            <button type="button" name="tombol" value="Cari Mobil" onclick="carimobil()">Pilih Mobil</button><br><br><hr>
+            <label for="mobil">Mobil :</label> <br>
+            <input type="text" name="jenismobil" id="mobilpilihan" required> <br>
+            <div>
+                <p>Harga : <span id="hargamobil">-</span> /hari</p>
+                <img src="" id="gambarmobil" alt="">
+            </div>
+        </div>
+        
+            <center><input type="submit" id="submit" value="Pesan Sekarang" onclick="infomobil()//window.location.href='./pembayaran.html'"></center>
+    </form>
+
+   
+
+    <script>
+        const electron = require("electron");
+        const{
+            ipcRenderer
+        } = electron;
+
+
+        function carimobil(){
+         const { ipcRenderer } = require('electron');
+         ipcRenderer.send("carimobil"); 
+        }
+
+        ipcRenderer.on('update', (event, arg) => {
+            let kalimat = document.getElementById("mobilpilihan");
+            kalimat.value = arg.pilihan;
+            let x = document.getElementById("hargamobil");
+            x.innerHTML = arg.harga;
+            let y = document.getElementById("gambarmobil");
+            y.setAttribute("src", arg.gambar);
+        });
+
+        const form = document.getElementById("form");
+        const elements = {};
+
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+
+            for (let i = 0; i < form.elements.length; i++){
+                if (form.elements[i].type !== "submit")
+                elements[form.elements[i].name] = form.elements[i].value;
+            }
+
+            ipcRenderer.send("sewa:create", elements);
+        });
+
+        function infomobil(){
+            const { ipcRenderer } = require('electron');
+            let tanggal_sewa = document.getElementById("daterent").value;
+            let tanggal_kembali = document.getElementById("datereturn").value;
+            let info = {
+                pilihan: document.getElementById("mobilpilihan").value,
+                gambar: document.getElementById("gambarmobil").src,
+                harga: document.getElementById("hargamobil").innerHTML,
+                hari : parseDate(tanggal_sewa,tanggal_kembali)
+            };
+            ipcRenderer.send('infomobil', info); 
+       
+            
+        }
+
+        function parseDate(date1,date2) {
+             
+                dt1 = new Date(date1);
+                dt2 = new Date(date2);
+                return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+        }
+
+    </script>
+</body>
+</html>

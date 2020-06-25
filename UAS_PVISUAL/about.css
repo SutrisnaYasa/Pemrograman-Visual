@@ -1,0 +1,54 @@
+.background{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("./src/back5.jpg");
+    margin-bottom: 103px;
+}
+
+img{
+    width: 150px;
+    height: auto;
+    border-radius: 75px;
+}
+
+.kotak {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    background-color: white;    
+    margin-top: 20px;
+    border-radius: 20px;  
+    width: 500px;
+    height: 200%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+    margin-bottom: auto;
+  }
+
+.back{
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 75%;
+}
+
+.keterangan{
+    padding: 10px;
+    font-size: 18px;
+}
+
+p{
+    font-size: 18px;
+    margin-left: 140px;
+}
+
+h1{
+    color: black;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+

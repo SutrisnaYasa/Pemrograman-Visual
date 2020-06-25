@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Rental Bali</title>
+    <link rel="stylesheet" href="./daftarmobil.css">
+</head>
+<body>
+    <div class="row">
+        <h1>Daftar Mobil</h1>
+        <div class="column">
+            <div class="card" onclick="mobilavansa()" id="mobilavansa">
+                 <p id="avansa">Avansa</p>
+                 <p class="hargamobil">Rp<span id="hargaavansa">200,000</span>/hari</p>
+                 <img id="gambaravansa" src="./src/avansa putih.png" alt="">
+                 <button class="buttonpilih" onclick="mobilavansa()" id="mobilavansa">Book ini</button>
+             </div>
+         </div>
+        <div class="column">
+            <div class="card" onclick="mobilveloz()" id="mobilveloz">
+                <p id="veloz">Veloz</p>
+                <p class="hargamobil">Rp<span id="hargaveloz">200,000</span>/hari</p>
+                <img id="gambarveloz" src="./src/veloz.jpg" alt="">
+                <button class="buttonpilih" onclick="mobilveloz()" id="mobilveloz">Book ini</button>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card" onclick="mobilagya()" id="mobilagya">
+                <p id="agya">Toyota Agya</p>
+                <p class="hargamobil">Rp<span id="hargaagya">300,000</span>/hari</p>
+                <img id="gambaragya" src="./src/agya.jpeg" alt="">
+                <button class="buttonpilih" onclick="mobilagya()" id="mobilagya">Book ini</button>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card" onclick="mobilkarimun()" id="mobilkarimun">
+                 <p id="karimun">Karimun Wagon R</p>
+                 <p class="hargamobil">Rp<span id="hargakarimun">250,000</span>/hari</p>
+                 <img id="gambarkarimun" src="./src/karimun.jpg" alt="">
+                 <button class="buttonpilih" onclick="mobilkarimun()" id="mobilkarimun">Book ini</button>
+             </div>
+         </div>
+         <div class="column">
+             <div class="card" onclick="mobilswift()" id="mobilswift">
+                 <p id="swift">Swift</p>
+                 <p class="hargamobil">Rp<span id="hargaswift">400,000</span>/hari</p>
+                 <img id="gambarswift" src="./src/swift.jpg" alt="">
+                 <button class="buttonpilih" onclick="mobilswift()" id="mobilswift">Book ini</button>
+             </div>
+         </div>
+         <div class="column">
+             <div class="card" onclick="mobilsuzukycarry()" id="mobilsuzukycarry">
+                 <p id="suzukycarry">Suzuky Carry</p>
+                 <p class="hargamobil">Rp<span id="hargasuzukycarry">450,000</span>/hari</p>
+                 <img id="gambarsuzukycarry" src="./src/suzukycarry.jpg" alt="">
+                 <button class="buttonpilih" onclick="mobilsuzukycarry()" id="mobilsuzukycarry">Book ini</button>
+             </div>
+         </div>
+         <div class="column">
+            <div class="card" onclick="mobillamborghini()" id="mobillamborghini">
+                <p id="lamborghini">Lamborghini</p>
+                <p class="hargamobil">Rp<span id="hargalamborghini">400,000</span>/hari</p>
+                <img id="gambarlamborghini" src="./src/lamborghini.jpg" alt="">
+                <button class="buttonpilih" onclick="mobillamborghini()" id="mobillamborghini">Book ini</button>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card" onclick="mobilalphard()" id="mobilalphard">
+                <p id="alphard">Alphard</p>
+                <p class="hargamobil">Rp<span id="hargaalphard">400,000</span>/hari</p>
+                <img id="gambaralphard" src="./src/alphard.jpg" alt="">
+                <button class="buttonpilih" onclick="mobilalphard()" id="mobilalphard">Book ini</button>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script>
+
+        function mobilavansa(){
+            const electron = require("electron");
+            const { ipcRenderer } = electron;
+        
+            document.getElementById("mobilavansa").addEventListener("click", () =>{
+                let data = {
+                    pilihan: document.getElementById("avansa").innerHTML,
+                    gambar: document.getElementById("gambaravansa").src,
+                    harga: document.getElementById("hargaavansa").innerHTML
+                };
+                ipcRenderer.send('sewamobil', data);
+                     
+
+                const remote = require('electron').remote
+                let w = remote.getCurrentWindow()
+                w.close()
+            }, false);         
+        }
+
+        function mobilveloz(){
+            const electron = require("electron");
+            const { ipcRenderer } = electron;
+        
+            document.getElementById("mobilveloz").addEventListener("click", () =>{
+                let data = {
+                    pilihan: document.getElementById("veloz").innerHTML,
+                    gambar: document.getElementById("gambarveloz").src,
+                    harga: document.getElementById("hargaveloz").innerHTML
+                };
+                ipcRenderer.send('sewamobil', data);
+                     
+
+                const remote = require('electron').remote
+                let w = remote.getCurrentWindow()
+                w.close()
+            }, false);         
+        }
+
+        function mobilagya(){
+            const electron = require("electron");
+            const { ipcRenderer } = electron;
+        
+            document.getElementById("mobilagya").addEventListener("click", () =>{
+                let data = {
+                    pilihan: document.getElementById("agya").innerHTML,
+                    gambar: document.getElementById("gambaragya").src,
+                    harga: document.getElementById("hargaagya").innerHTML
+                };
+                ipcRenderer.send('sewamobil', data);
+                     
+
+                const remote = require('electron').remote
+                let w = remote.getCurrentWindow()
+                w.close()
+            }, false);         
+        }
+
+        function mobilkarimun(){
+            const electron = require("electron");
+            const { ipcRenderer } = electron;
+        
+            document.getElementById("mobilkarimun").addEventListener("click", () =>{
+                let data = {
+                    pilihan: document.getElementById("karimun").innerHTML,
+                    gambar: document.getElementById("gambarkarimun").src,
+                    harga: document.getElementById("hargakarimun").innerHTML
+                };
+                ipcRenderer.send('sewamobil', data);
+                     
+
+                const remote = require('electron').remote
+                let w = remote.getCurrentWindow()
+                w.close()
+            }, false);         
+        }
+
+        function mobilswift(){
+            const electron = require("electron");
+            const { ipcRenderer } = electron;
+        
+            document.getElementById("mobilswift").addEventListener("click", () =>{
+                let data = {
+                    pilihan: document.getElementById("swift").innerHTML,
+                    gambar: document.getElementById("gambarswift").src,
+                    harga: document.getElementById("hargaswift").innerHTML
+                };
+                ipcRenderer.send('sewamobil', data);
+                     
+
+                const remote = require('electron').remote
+                let w = remote.getCurrentWindow()
+                w.close()
+            }, false);         
+        }
+
+        function mobilsuzukycarry(){
+            const electron = require("electron");
+            const { ipcRenderer } = electron;
+        
+            document.getElementById("mobilsuzukycarry").addEventListener("click", () =>{
+                let data = {
+                    pilihan: document.getElementById("suzukycarry").innerHTML,
+                    gambar: document.getElementById("gambarsuzukycarry").src,
+                    harga: document.getElementById("hargasuzukycarry").innerHTML
+                };
+                ipcRenderer.send('sewamobil', data);
+                     
+
+                const remote = require('electron').remote
+                let w = remote.getCurrentWindow()
+                w.close()
+            }, false);         
+        }
+
+        function mobillamborghini(){
+            const electron = require("electron");
+            const { ipcRenderer } = electron;
+        
+            document.getElementById("mobillamborghini").addEventListener("click", () =>{
+                let data = {
+                    pilihan: document.getElementById("lamborghini").innerHTML,
+                    gambar: document.getElementById("gambarlamborghini").src,
+                    harga: document.getElementById("hargalamborghini").innerHTML
+                };
+                ipcRenderer.send('sewamobil', data);
+                     
+
+                const remote = require('electron').remote
+                let w = remote.getCurrentWindow()
+                w.close()
+            }, false);         
+        }
+
+         function mobilalphard(){
+            const electron = require("electron");
+            const { ipcRenderer } = electron;
+        
+            document.getElementById("mobilalphard").addEventListener("click", () =>{
+                let data = {
+                    pilihan: document.getElementById("alphard").innerHTML,
+                    gambar: document.getElementById("gambaralphard").src,
+                    harga: document.getElementById("hargaalphard").innerHTML
+                };
+                ipcRenderer.send('sewamobil', data);
+                     
+
+                const remote = require('electron').remote
+                let w = remote.getCurrentWindow()
+                w.close()
+            }, false);         
+        }
+
+        
+
+
+    </script>
+</body>
+</html>

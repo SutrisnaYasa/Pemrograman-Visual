@@ -1,0 +1,74 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    height: 100%;
+    margin: 0;
+}
+
+html{
+    height: 100%;
+    margin: 0;
+}
+
+.container{
+    padding: 20px 50px;
+    height: 210%;
+    background-size: cover;
+    background-image: url("./src/back1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+   
+}
+
+div.tulisan{
+   color: white;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   margin-top: 25px;
+   margin: 20px;
+}
+
+div.tulisan2{
+    margin-left: 250px;
+    color:black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-top: 25px; 
+    margin: 20px;
+    text-align: center;
+}
+
+p{
+    font-size: 20px;
+}
+
+br{
+    margin-bottom: 10px;
+}
+
+.card {
+    box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.3); /* this adds the "card" effect */
+    padding: 16px;
+    background-color: white;
+    border-radius: 25px;  
+    margin-top: 20px;
+}
+.kotak {
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.3); /* this adds the "card" effect */
+    padding: 16px;
+    background-color: grey;
+    border-radius: 25px;  
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+hr{
+    margin-left:50px;
+    margin-right:50px;
+}
+
+
+hr.hr1{
+    margin-left:15px;
+    margin-right:15px;
+}

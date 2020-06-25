@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pembayaran.css">
+    <title>My Rental Bali</title>
+</head>
+<body>
+    <h1></h1>
+
+    <form id="form">
+        <div class="bayar">
+            <div id="mobilinfo">
+                <p>Harga : <span id="hargamobil"></span></p>
+                <p>Waktu sewa : <span id="waktusewa"></span> </p>
+                <img id="gambarmobil" src="" alt="">
+            </div>
+        </div>
+        <div id="navbarbawah">
+           <p>Total Bayar : <span id="total">-</span> </p>
+        </div>
+
+    </form>
+
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+
+        ipcRenderer.send("mobil:request:list");
+
+        ipcRenderer.on('mobil:response:list', (event, arg) => {
+        let mobilDiv = document.getElementById("mobilinfo");
+        console.log("disini harusnya: ",arg[0].hari);
+        
+        arg.forEach(arg =>{
+        const infoDiv = document.createElement("Div");
+        infoDiv.setAttribute("id","mo");
+
+        let HargaMobil= document.getElementById("hargamobil");
+        HargaMobil.innerHTML = arg.harga;
+        
+      
+        let waktusewa =document.getElementById("waktusewa");
+        waktusewa.innerHTML = arg.hari+ ' hari';
+
+        let tot =document.getElementById("total");
+        tot.innerHTML = (parseInt(arg.harga) * parseInt(arg.hari))+',000';
+        //Memasukan gambar
+        let gambarmobil = document.getElementById("gambarmobil");
+        gambarmobil.setAttribute("src",arg.gambar);
+        });
+    })
+
+        function bayarsekarang(){
+                const electron = require("electron");
+                const { ipcRenderer, dialog } = electron;
+
+                const form = document.getElementById("form");
+                const elements = {};
+            
+                form.addEventListener("submit", event => {
+                    event.preventDefault();
+
+                    for (let i = 0; i < form.elements.length; i++){
+                        if (form.elements[i].type !== "submit")
+                        elements[form.elements[i].name] = form.elements[i].value;
+                    }
+
+                    ipcRenderer.send("pembayaran", elements);
+                }); 
+
+            }
+
+           
+
+        
+       
+    </script>
+</body>
+</html>
